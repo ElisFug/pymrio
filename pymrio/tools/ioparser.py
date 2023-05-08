@@ -1166,8 +1166,29 @@ def parse_wiod(path, version, year=None, names=("isic", "c_codes"), popvector=No
             "start": "wat_",
             "ext": ".xls",
             "unit": {"all": None},
-        },
+        },        
     }
+    if version==2016:  { 
+        "CO2": {
+            "name": "CO2 emissions - per source",
+            "start": "co2em56",
+            "ext": ".xls",
+            "unit": {"all": "Gg"},
+         },
+         "EM": {
+             "name": "Emission relevant energy use",
+             "start": "emrel56",
+             "ext": ".xls",
+             "unit": {"all": "TJ"},
+         },
+         "EU": {
+             "name": "Gross energy use",
+             "start": "gross56",
+             "ext": ".xls",
+             "unit": {"all": "TJ"},
+         },
+         }
+
 
     _F_Y_template = pd.DataFrame(columns=F_Y_fac.columns)
     _ss_F_Y_pressure_column = "c37"
@@ -1250,10 +1271,6 @@ def parse_wiod(path, version, year=None, names=("isic", "c_codes"), popvector=No
 
 
 
-
-
-
-
 def __get_WIOD_env_extension(root_path, year, ll_co, para):
     """Parses the wiod environmental extension
 
@@ -1301,7 +1318,7 @@ def __get_WIOD_env_extension(root_path, year, ll_co, para):
             "Extension not included".format(para["start"]),
             ParserWarning,
         )
-        return None
+       # return None
 
     elif len(ll_root_content) > 1:
         raise ParserError(
